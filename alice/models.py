@@ -12,5 +12,17 @@ class Person(Model):
 
 class Hobbit(Model):
     id = AutoField(primary_key=True)
-    who = ForeignKey(Person,on_delete=CASCADE)
+    who = ForeignKey(Person, on_delete=CASCADE)
     hobbit_name = CharField(max_length=32)
+
+
+class Job(Model):
+    id = AutoField(primary_key=True)
+    jobName = CharField(max_length=32)
+
+
+class PersonAndJob(Model):
+    id = AutoField(primary_key=True)
+    person = ForeignKey(Person, on_delete=CASCADE)
+    job = ForeignKey(Job, on_delete=CASCADE)
+    salary = IntegerField(default=0)

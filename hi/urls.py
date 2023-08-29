@@ -23,6 +23,8 @@ from alice import views
 router = DefaultRouter()
 router.register(r'person', views.PersonModelViewSet)
 router.register(r'hobbit', views.HobbitModelViewSet)
+router.register(r'job', views.JobModelViewSet)
+router.register(r'person_and_job', views.PersonAndJobModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
