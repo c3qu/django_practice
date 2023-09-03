@@ -1,27 +1,21 @@
+from rest_framework.fields import CharField, IntegerField
 from rest_framework.serializers import ModelSerializer
 
-from alice.models import Person, Hobbit, Job, PersonAndJob
+from alice.models import Navigation
 
 
-class PersonSerializer(ModelSerializer):
+class NavigationSerializerForSuperUser(ModelSerializer):
+    permission = IntegerField(read_only=True, source="permission.id")
+
     class Meta:
-        model = Person
+        model = Navigation
         fields = '__all__'
 
 
-class HobbitSerializer(ModelSerializer):
+class NavigationSerializer(ModelSerializer):
+    category = CharField(max_length=64, read_only=True)
+    permission = IntegerField(read_only=True, source="permission.id")
+
     class Meta:
-        model = Hobbit
-        fields = '__all__'
-
-
-class JobSerializer(ModelSerializer):
-    class Meta:
-        model = Job
-        fields = '__all__'
-
-
-class PersonAndJobSerializer(ModelSerializer):
-    class Meta:
-        model = PersonAndJob
+        model = Navigation
         fields = '__all__'

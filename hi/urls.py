@@ -16,17 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 
 from alice import views
 
 router = DefaultRouter()
-router.register(r'person', views.PersonModelViewSet)
-router.register(r'hobbit', views.HobbitModelViewSet)
-router.register(r'job', views.JobModelViewSet)
-router.register(r'person_and_job', views.PersonAndJobModelViewSet)
+router.register(r'navigation', views.NavigationModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include(router.urls))
+    path("", include(router.urls)),
+    path('api/auth/', obtain_auth_token),
+
 ]
