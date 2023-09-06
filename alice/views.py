@@ -9,19 +9,19 @@ from alice.serializers import NavigationSerializer, NavigationSerializerForSuper
 
 
 class NavigationModelViewSet(ModelViewSet):
-    permission_classes = (DjangoModelPermissions, IsOwnerOrReadOnly,)
+    permission_classes = (IsOwnerOrReadOnly,)
     queryset = Navigation.objects.all()
 
-    def get_queryset(self):
-        app_label = Navigation._meta.app_label
-        queryset = Navigation.objects.annotate(
-            permission_fullname=Concat(
-                Value(app_label + "."),
-                "permission__codename",
-                output_field=CharField()
-            )).filter(permission_fullname__in=self.request.user.get_all_permissions())
-        # return cache.get_or_set(cache_key, queryset, 60)
-        return queryset
+    # def get_queryset(self):
+    #     app_label = Navigation._meta.app_label
+    #     queryset = Navigation.objects.annotate(
+    #         permission_fullname=Concat(
+    #             Value(app_label + "."),
+    #             "permission__codename",
+    #             output_field=CharField()
+    #         )).filter(permission_fullname__in=self.request.user.get_all_permissions())
+    #     # return cache.get_or_set(cache_key, queryset, 60)
+    #     return queryset
 
     def get_serializer_class(self):
         if self.request.user.is_superuser:

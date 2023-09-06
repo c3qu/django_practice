@@ -1,5 +1,7 @@
 from rest_framework import permissions
 
+from alice.constant import APP_LABEL
+
 
 class MosPermission(permissions.BasePermission):
     """
@@ -19,5 +21,4 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         return True
 
     def has_object_permission(self, request, view, obj):
-        app_label = obj._meta.app_label
-        return app_label + "." + obj.permission.codename in request.user.get_all_permissions()
+        return APP_LABEL + "." + obj.permission.codename in request.user.get_all_permissions()

@@ -22,7 +22,8 @@ class Navigation(Model):
     category = CharField(max_length=64)
     name = CharField(max_length=64, unique=True)
     permission = OneToOneField(Permission, on_delete=CASCADE)
-    url = CharField(max_length=64, unique=True)
+    path = CharField(max_length=64, unique=True)
+    component = CharField(max_length=64, unique=True)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         default = {
@@ -39,3 +40,8 @@ class Navigation(Model):
     def delete(self, using=None, keep_parents=False):
         self.permission.delete()
         return super().delete(using, keep_parents)
+
+
+class Administrators(Model):
+    name = IntegerField()
+    navigation = ForeignKey(Navigation, on_delete=CASCADE)

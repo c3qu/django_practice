@@ -15,6 +15,9 @@ class NavigationSerializerForSuperUser(ModelSerializer):
 class NavigationSerializer(ModelSerializer):
     category = CharField(max_length=64, read_only=True)
     permission = IntegerField(read_only=True, source="permission.id")
+    unchecked = IntegerField()
+    checked = IntegerField()
+    check_none = IntegerField()
 
     class Meta:
         model = Navigation
